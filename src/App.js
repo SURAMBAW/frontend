@@ -11,7 +11,7 @@ function App() {
 
   // Fetch tasks from the backend on component mount
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/v1/tasks/')
+    axios.get('https://backend-r4nn.onrender.com/api/tasks/')
       .then((response) => {
         setTasks(response.data);
       })
@@ -25,7 +25,7 @@ function App() {
     if (task.trim() !== '') {
       const newTask = { text: task, completed: false };
       console.log('Sending task:', newTask); // Debug log
-      axios.post('http://127.0.0.1:8000/api/v1/tasks/', newTask)
+      axios.post('https://backend-r4nn.onrender.com/api/tasks/', newTask)
         .then((response) => {
           console.log('Task added:', response.data); // Debug log
           setTasks([...tasks, response.data]);
@@ -39,7 +39,7 @@ function App() {
 
   // Delete a task
   const deleteTask = (id) => {
-    axios.delete(`http://127.0.0.1:8000/api/v1/tasks/${id}/`)
+    axios.delete(`https://backend-r4nn.onrender.com/api/tasks/${id}/`)
       .then(() => {
         setTasks(tasks.filter((t) => t.id !== id));
       })
@@ -53,7 +53,7 @@ function App() {
     const taskToUpdate = tasks.find((t) => t.id === id);
     const updatedTask = { ...taskToUpdate, completed: !taskToUpdate.completed };
 
-    axios.put(`http://127.0.0.1:8000/api/v1/tasks/${id}/`, updatedTask)
+    axios.put(`https://backend-r4nn.onrender.com/api/tasks/${id}/`, updatedTask)
       .then((response) => {
         setTasks(tasks.map((t) => (t.id === id ? response.data : t)));
       })
@@ -73,7 +73,7 @@ function App() {
   const saveEdit = () => {
     const updatedTask = { text: task, completed: tasks.find((t) => t.id === editingTaskId).completed };
 
-    axios.put(`http://127.0.0.1:8000/api/v1/tasks/${editingTaskId}/`, updatedTask)
+    axios.put(`https://backend-r4nn.onrender.com/api/tasks/${editingTaskId}/`, updatedTask)
       .then((response) => {
         setTasks(tasks.map((t) => (t.id === editingTaskId ? response.data : t)));
         setEditingIndex(null);
